@@ -18,37 +18,31 @@
 # IMPORTANT: Please replace the file_path with your own file path before running this script.
 file_path="/Users/huyixi/i/huyixi.wiki/docs/quotes.md"
 
-# Check if file_path is set
 if [[ -z "$file_path" ]]; then
   echo "Error: file_path is not set. Please set the file_path variable at the top of this script."
   exit 1
 fi
 
-current_datetime=$(date +"%Y-%m-%d %H:%M:%S")
-
 quote="$1"
 source_title="$2"
 source_link="$3"
 
-# 格式化引用文本
+current_datetime=$(date +"%Y-%m-%d %H:%M:%S")
+
 formatted_quote="> $quote"$'\n'
 
-if [[ -n "$source_title" && -n "$source_link" ]]; then
-  formatted_quote="$formatted_quote"$'\n'"Source: [${source_title}](${source_link})"$'\n'"Time: $current_datetime "
-elif [[ -n "$source_title" ]]; then
-  formatted_quote="$formatted_quote"$'\n'"Source: [${source_title}]()"$'\n'"Time: $current_datetime"
+if [[ -n "$source_title" ]]; then
+  formatted_quote="$formatted_quote"$'\n'"Source: [${source_title}](${source_link})"
 elif [[ -n "$source_link" ]]; then
-  formatted_quote="$formatted_quote"$'\n'"Source: [](${source_link})"$'\n'"Time: $current_datetime"
-else
-  formatted_quote="$formatted_quote"$'\n'"Time: $current_datetime"
+  formatted_quote="$formatted_quote"$'\n'"Source: [source](${source_link})"
 fi
 
-# 检查文件是否存在，如果不存在则创建
+formatted_quote="$formatted_quote"$'\n'"Time: $current_datetime"$'\n'
+
 if [ ! -f "$file_path" ]; then
   touch "$file_path"
 fi
 
-# 将引用文本追加到文件末尾
-echo "$formatted_quote"$'\n' >> "$file_path"
+echo "$formatted_quote" >> "$file_path"
 
 echo "Quote inserted into $file_path"
