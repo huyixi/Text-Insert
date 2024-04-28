@@ -2,7 +2,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title quo
+# @raycast.title text-insert
 # @raycast.mode compact
 
 # Optional parameters:
